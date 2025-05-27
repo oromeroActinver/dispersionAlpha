@@ -1,7 +1,8 @@
 package com.actinver.dispersionAlpha.util;
 
-import java.io.FileInputStream;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -173,7 +174,7 @@ public class ConexionBDSisAsset {
 	public static Connection getConnection() {
 		Properties properties = new Properties();
 		try (InputStream input = ConexionBDSisAsset.class.getClassLoader().getResourceAsStream("properties.properties")) {
-			properties.load(fis);
+			properties.load(input);
 			String url = properties.getProperty("db.url");
 			String user = properties.getProperty("db.user");
 			String password = properties.getProperty("db.password");
