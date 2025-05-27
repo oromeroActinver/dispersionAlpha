@@ -18,3 +18,15 @@
 2025-05-16 14:23:52,828 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - fechaNow: 16/05/2025 02:23:52 PM
 2025-05-16 14:23:52,828 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - fechaFormateada: 16_05_2025__02_23_52__PM
 2025-05-16 14:23:52,830 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - Archivo de log generado correctamente: \\100MXL0081GLY\Users\oromero\Documents\SissAset\REPORTES\Sisasset-Dispercion\LOG Sistema\Proceso Envio Alpha 16_05_2025__02_23_52__PM.txt
+2025-05-20 12:32:42,550 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - Archivo de log generado correctamente: \\100MXL0081GLY\Users\oromero\Documents\SissAset\REPORTES\Sisasset-Dispercion\LOG Sistema\logAlpha20_05_2025__12_32_42__PM.txt
+2025-05-20 12:32:42,588 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - fechaNow: 20/05/2025 12:32:42 PM
+2025-05-20 12:32:42,588 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - fechaFormateada: 20_05_2025__12_32_42__PM
+2025-05-20 12:32:42,590 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - Archivo de log generado correctamente: \\100MXL0081GLY\Users\oromero\Documents\SissAset\REPORTES\Sisasset-Dispercion\LOG Sistema\Proceso Envio Alpha 20_05_2025__12_32_42__PM.txt
+2025-05-20 12:42:40,452 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - Archivo de log generado correctamente: \\100MXL0081GLY\Users\oromero\Documents\SissAset\REPORTES\Sisasset-Dispercion\LOG Sistema\logAlpha20_05_2025__12_42_40__PM.txt
+2025-05-20 12:42:40,477 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - fechaNow: 20/05/2025 12:42:40 PM
+2025-05-20 12:42:40,477 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - fechaFormateada: 20_05_2025__12_42_40__PM
+2025-05-20 12:42:40,479 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - Archivo de log generado correctamente: \\100MXL0081GLY\Users\oromero\Documents\SissAset\REPORTES\Sisasset-Dispercion\LOG Sistema\Proceso Envio Alpha 20_05_2025__12_42_40__PM.txt
+2025-05-20 13:04:00,386 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - Archivo de log generado correctamente: \\100MXL0081GLY\Users\oromero\Documents\SissAset\REPORTES\Sisasset-Dispercion\LOG Sistema\logAlpha20_05_2025__01_04_00__PM.txt
+2025-05-20 13:04:00,410 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - fechaNow: 20/05/2025 01:04:00 PM
+2025-05-20 13:04:00,410 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - fechaFormateada: 20_05_2025__01_04_00__PM
+2025-05-20 13:04:00,412 [main] INFO  com.actinver.dispersionAlpha.util.ConexionBDSisAsset - Archivo de log generado correctamente: \\100MXL0081GLY\Users\oromero\Documents\SissAset\REPORTES\Sisasset-Dispercion\LOG Sistema\Proceso Envio Alpha 20_05_2025__01_04_00__PM.txt

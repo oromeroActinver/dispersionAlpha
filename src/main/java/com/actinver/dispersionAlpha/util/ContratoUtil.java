@@ -140,8 +140,12 @@ public class ContratoUtil {
 			zipParameters.setCompressionMethod(CompressionMethod.DEFLATE);
 			zipParameters.setCompressionLevel(CompressionLevel.FASTEST);
 			zipParameters.setEncryptFiles(true);
+			zipParameters.setEncryptionMethod(EncryptionMethod.ZIP_STANDARD); // Cambiado de AES a ZIP_STANDARD
+			/*
+			zipParameters.setCompressionLevel(CompressionLevel.FASTEST);
+			zipParameters.setEncryptFiles(true);
 			zipParameters.setEncryptionMethod(EncryptionMethod.AES);
-			zipParameters.setAesKeyStrength(AesKeyStrength.KEY_STRENGTH_256);
+			zipParameters.setAesKeyStrength(AesKeyStrength.KEY_STRENGTH_256);*/
 
 			zip.addFile(tempPDFFile, zipParameters);
 		} catch (ZipException e) {
