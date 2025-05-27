@@ -10,7 +10,7 @@ import com.actinver.dispersionAlpha.vo.LogProcesoEnvio;
 public class App {
 
 	public static void main(String[] args) {
-		PropertyConfigurator.configure("src/main/resources/log4j.properties");
+		PropertyConfigurator.configure("C:/Users/oromero/Documents/SissAset/REPORTES/Sisasset-Dispercion/EJECUTABLE/log4j.properties");
 		ContratoUtil contratoUtil = new ContratoUtil();
 
 		ContratosTxtController contratosTxtController = new ContratosTxtController();
