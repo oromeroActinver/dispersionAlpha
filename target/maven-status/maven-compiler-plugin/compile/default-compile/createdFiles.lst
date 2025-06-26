@@ -1,0 +1,14 @@
+com\actinver\dispersionAlpha\vo\SoapData.class
+com\actinver\dispersionAlpha\util\SoapUtil.class
+com\actinver\dispersionAlpha\util\ConexionBDSisAsset.class
+com\actinver\dispersionAlpha\controller\ContratosTxtController.class
+com\actinver\dispersionAlpha\vo\ArchivoAlphaPDF.class
+com\actinver\dispersionAlpha\vo\ContratoInfoTxt.class
+com\actinver\dispersionAlpha\util\Email$1.class
+com\actinver\dispersionAlpha\controller\EmailController.class
+com\actinver\dispersionAlpha\App.class
+com\actinver\dispersionAlpha\vo\DatosContrato.class
+com\actinver\dispersionAlpha\util\ContratoUtil.class
+com\actinver\dispersionAlpha\vo\LogGestorAlpha.class
+com\actinver\dispersionAlpha\vo\LogProcesoEnvio.class
+com\actinver\dispersionAlpha\util\Email.class
