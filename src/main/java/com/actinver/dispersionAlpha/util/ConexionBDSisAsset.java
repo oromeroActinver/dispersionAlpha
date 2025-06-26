@@ -20,6 +20,7 @@ import com.actinver.dispersionAlpha.vo.SoapData;
 
 public class ConexionBDSisAsset {
 
+	@SuppressWarnings("unused")
 	private static final String PROPERTIES_FILE = "src/main/resources/properties.properties";
 	private static final Logger logger = Logger.getLogger(ConexionBDSisAsset.class.getName());
 
@@ -173,8 +174,9 @@ public class ConexionBDSisAsset {
 
 	public static Connection getConnection() {
 		Properties properties = new Properties();
-		try (InputStream input = ConexionBDSisAsset.class.getClassLoader().getResourceAsStream("properties.properties")) {
-			
+		try (InputStream input = ConexionBDSisAsset.class.getClassLoader()
+				.getResourceAsStream("properties.properties")) {
+
 			if (input == null) {
 				throw new FileNotFoundException("No se encontró el archivo properties.properties en el classpath");
 			}
