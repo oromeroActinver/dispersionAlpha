@@ -27,7 +27,7 @@ public class ContratosTxtController {
 	static ContratoUtil contratoUtil = new ContratoUtil();
 	SoapUtil soapUtil = new SoapUtil();
 	@SuppressWarnings("unused")
-	private static final int TAMANO_LOTE = 100; // Tamaño del lote
+	private static final int TAMANO_LOTE = 100;
 
 	public LogProcesoEnvio dispersionReportes() {
 		LogProcesoEnvio logProcesoEnvio = new LogProcesoEnvio();
@@ -137,7 +137,5 @@ public class ContratosTxtController {
 
 		return logAlpha;
 	}
-
-	
 
 }
