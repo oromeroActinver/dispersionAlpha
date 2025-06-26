@@ -7,13 +7,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 import org.apache.log4j.Logger;
 
 import com.actinver.dispersionAlpha.vo.DatosContrato;
@@ -23,7 +21,6 @@ import com.actinver.dispersionAlpha.vo.LogProcesoEnvio;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
-import net.lingala.zip4j.model.enums.AesKeyStrength;
 import net.lingala.zip4j.model.enums.CompressionLevel;
 import net.lingala.zip4j.model.enums.CompressionMethod;
 import net.lingala.zip4j.model.enums.EncryptionMethod;
@@ -98,25 +95,16 @@ public class ContratoUtil {
 
 	}
 
-	// Método para generar una contraseña única
+	// Método para generar una contraseña basada en los últimos 6 dígitos del
 	public String generatePassword(String contrato) {
-		String upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		String lowerCase = "abcdefghijklmnopqrstuvwxyz";
-		String specialCharacters = "!@#$%^&*()?";
-		String numbers = "0123456789";
-		String allCharacters = upperCase + lowerCase + specialCharacters + numbers;
-		SecureRandom random = new SecureRandom();
-		Set<Character> usedCharacters = new HashSet<>();
-		StringBuilder password = new StringBuilder();
-		while (password.length() < 10) {
-			int index = random.nextInt(allCharacters.length());
-			char randomChar = allCharacters.charAt(index);
-			if (!Character.isDigit(randomChar) || !usedCharacters.contains(randomChar)) {
-				password.append(randomChar);
-				usedCharacters.add(randomChar);
-			}
+		String contratoNumerico = contrato.replaceAll("\\D", "");
+		if (contratoNumerico.length() < 6) {
+			contratoNumerico = String.format("%06d", Integer.parseInt(contratoNumerico));
 		}
-		return password.toString();
+
+		String password = contratoNumerico.substring(contratoNumerico.length() - 6);
+
+		return password;
 	}
 
 	public File compressAndPasswordProtectPDF(byte[] pdfContent, String pdfFileName, String password)
@@ -141,11 +129,6 @@ public class ContratoUtil {
 			zipParameters.setCompressionLevel(CompressionLevel.FASTEST);
 			zipParameters.setEncryptFiles(true);
 			zipParameters.setEncryptionMethod(EncryptionMethod.ZIP_STANDARD); // Cambiado de AES a ZIP_STANDARD
-			/*
-			zipParameters.setCompressionLevel(CompressionLevel.FASTEST);
-			zipParameters.setEncryptFiles(true);
-			zipParameters.setEncryptionMethod(EncryptionMethod.AES);
-			zipParameters.setAesKeyStrength(AesKeyStrength.KEY_STRENGTH_256);*/
 
 			zip.addFile(tempPDFFile, zipParameters);
 		} catch (ZipException e) {
