@@ -18,6 +18,7 @@ import com.actinver.dispersionAlpha.util.SoapUtil;
 import com.actinver.dispersionAlpha.vo.DatosContrato;
 import com.actinver.dispersionAlpha.vo.LogGestorAlpha;
 import com.actinver.dispersionAlpha.vo.LogProcesoEnvio;
+import com.itextpdf.text.DocumentException;
 
 public class ContratosTxtController {
 
@@ -29,7 +30,7 @@ public class ContratosTxtController {
 	@SuppressWarnings("unused")
 	private static final int TAMANO_LOTE = 100;
 
-	public LogProcesoEnvio dispersionReportes() {
+	public LogProcesoEnvio dispersionReportes() throws DocumentException, ClassNotFoundException {
 		LogProcesoEnvio logProcesoEnvio = new LogProcesoEnvio();
 		List<LogGestorAlpha> listlogAlpha = new ArrayList<>();
 
@@ -82,7 +83,7 @@ public class ContratosTxtController {
 	}
 
 	private LogGestorAlpha dispercionXcontrato(String[] datosArchivo, Map<String, String> paths,
-			String pathsDispersion) {
+			String pathsDispersion) throws DocumentException, ClassNotFoundException {
 		LogGestorAlpha logAlpha = new LogGestorAlpha();
 		DatosContrato datosContrato = new DatosContrato();
 		ContratoUtil contratoUtil = new ContratoUtil();
@@ -120,7 +121,7 @@ public class ContratosTxtController {
 
 		try {
 			String password = contratoUtil.generatePassword(contrato);
-			File zipFile = contratoUtil.compressAndPasswordProtectPDF(pdfContent, datosContrato.getNameFile(),
+			File zipFile = contratoUtil.protectAndZipPDF(pdfContent, datosContrato.getNameFile(),
 					password);
 			String directorioDMZ = contratoUtil.saveFileToLocalDirectory(zipFile, pathDMZ);
 

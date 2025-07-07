@@ -6,12 +6,13 @@ import com.actinver.dispersionAlpha.controller.ContratosTxtController;
 import com.actinver.dispersionAlpha.controller.EmailController;
 import com.actinver.dispersionAlpha.util.ContratoUtil;
 import com.actinver.dispersionAlpha.vo.LogProcesoEnvio;
+import com.itextpdf.text.DocumentException;
 
 public class App {
 	
 	private static final Logger logger = Logger.getLogger(App.class.getName());
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws DocumentException, ClassNotFoundException {
 		PropertyConfigurator.configure("C:/Users/oromero/Documents/SissAset/REPORTES/Sisasset-Dispercion/EJECUTABLE/log4j.properties");
 		
 		logger.info("\n*******************"

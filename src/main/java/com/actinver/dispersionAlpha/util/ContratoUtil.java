@@ -17,13 +17,15 @@ import org.apache.log4j.Logger;
 import com.actinver.dispersionAlpha.vo.DatosContrato;
 import com.actinver.dispersionAlpha.vo.LogGestorAlpha;
 import com.actinver.dispersionAlpha.vo.LogProcesoEnvio;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import net.lingala.zip4j.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.model.enums.CompressionLevel;
 import net.lingala.zip4j.model.enums.CompressionMethod;
-import net.lingala.zip4j.model.enums.EncryptionMethod;
 
 public class ContratoUtil {
 
@@ -95,7 +97,7 @@ public class ContratoUtil {
 
 	}
 
-	// Método para generar una contraseña basada en los últimos 6 dígitos del
+	// Contraseña últimos 6 dígitos del contrato
 	public String generatePassword(String contrato) {
 		String contratoNumerico = contrato.replaceAll("\\D", "");
 		if (contratoNumerico.length() < 6) {
@@ -107,39 +109,52 @@ public class ContratoUtil {
 		return password;
 	}
 
-	public File compressAndPasswordProtectPDF(byte[] pdfContent, String pdfFileName, String password)
-			throws IOException, ZipException {
+	public File protectAndZipPDF(byte[] pdfBytes, String fileName, String password)
+			throws IOException, DocumentException {
+		
+		File protectedPdf = protectPdfWithPassword(pdfBytes, fileName, password);
+		String baseFileName = fileName.substring(0, fileName.lastIndexOf('.'));
+		File zipFile = new File(System.getProperty("java.io.tmpdir"), baseFileName + ".zip");
 
-		String baseFileName = pdfFileName.substring(0, pdfFileName.lastIndexOf('.'));
-		File tempPDFFile = new File(System.getProperty("java.io.tmpdir"), baseFileName + ".pdf");
+		@SuppressWarnings("resource")
+		ZipFile zip = new ZipFile(zipFile);
+		ZipParameters zipParameters = new ZipParameters();
+		zipParameters.setCompressionMethod(CompressionMethod.DEFLATE);
+		zipParameters.setCompressionLevel(CompressionLevel.NORMAL);
+		zipParameters.setEncryptFiles(false); // 🔓 No cifrado
 
-		try (FileOutputStream fos = new FileOutputStream(tempPDFFile)) {
-			fos.write(pdfContent);
-		} catch (IOException e) {
-			throw new IOException("Error al escribir el archivo temporal PDF: " + e.getMessage(), e);
-		}
-
-		String zipFileName = baseFileName + ".zip";
-		File zipFile = new File(System.getProperty("java.io.tmpdir"), zipFileName);
-
-		char[] fixedPassword = password.toCharArray();
-		try (ZipFile zip = new ZipFile(zipFile, fixedPassword)) {
-			ZipParameters zipParameters = new ZipParameters();
-			zipParameters.setCompressionMethod(CompressionMethod.DEFLATE);
-			zipParameters.setCompressionLevel(CompressionLevel.FASTEST);
-			zipParameters.setEncryptFiles(true);
-			zipParameters.setEncryptionMethod(EncryptionMethod.ZIP_STANDARD); // Cambiado de AES a ZIP_STANDARD
-
-			zip.addFile(tempPDFFile, zipParameters);
-		} catch (ZipException e) {
-			throw new ZipException("Error al crear el archivo ZIP: " + e.getMessage());
-		} finally {
-			if (!tempPDFFile.delete()) {
-				logger.error("No se pudo eliminar el archivo temporal: " + tempPDFFile.getAbsolutePath());
-			}
+		zip.addFile(protectedPdf, zipParameters);
+		
+		if (!protectedPdf.delete()) {
+			System.err.println("No se pudo eliminar el archivo temporal: " + protectedPdf.getAbsolutePath());
 		}
 
 		return zipFile;
+	}
+
+	public static File protectPdfWithPassword(byte[] pdfBytes, String fileName, String password)
+			throws IOException, DocumentException {
+
+		File originalPdf = File.createTempFile("original", ".pdf");
+		Files.write(originalPdf.toPath(), pdfBytes);
+
+		File protectedPdf = new File(originalPdf.getParent(), fileName);
+
+		PdfReader reader = new PdfReader(originalPdf.getAbsolutePath());
+
+		// Escribir el PDF protegido con contraseña
+		try (FileOutputStream outputStream = new FileOutputStream(protectedPdf)) {
+			PdfStamper stamper = new PdfStamper(reader, outputStream);
+			stamper.setEncryption(password.getBytes(), // usuario
+					password.getBytes(), // propietario
+					PdfWriter.ALLOW_PRINTING, PdfWriter.ENCRYPTION_AES_128);
+			stamper.close();
+		}
+
+		reader.close();
+		originalPdf.delete();
+
+		return protectedPdf;
 	}
 
 	public String saveFileToLocalDirectory(File zipFile, String path) {
